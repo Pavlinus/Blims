@@ -6,7 +6,7 @@ package com.pavgame.Blims {
 
 	 * @author Pavlinus
 	 */
-	[SWF(width="960", height="640", frameRate="60", backgroundColor="#FFFFFF")]
+	[SWF(width="960", height="540", frameRate="60", backgroundColor="#FFFFFF")]
 	public class Blims extends Sprite 
 	{
 		private var mStarling:Starling;

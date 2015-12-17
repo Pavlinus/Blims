@@ -33,6 +33,18 @@ package com.pavgame.Blims {
 		[Embed(source="/../res/trooper_100_light.png")]
 		public static const TrooperLight:Class;
 		
+		[Embed(source="/../res/background_960.jpg")]
+		public static const Background:Class;
+		
+		[Embed(source="/../res/fonts/starjedi.ttf", embedAsCFF="false", fontFamily="StarJedi")]
+		public static const StarJedi:Class;
+		
+		[Embed(source="/../res/fonts/starjout.ttf", embedAsCFF="false", fontFamily="StarJediOut")]
+		public static const StarJediOut:Class;
+		
+		[Embed(source="/../res/gameover_960.jpg")]
+		public static const GameOverBackground:Class;
+		
 		public static const texturesCount:int = 3;
 		
 		const arrCapacity:int = 7;

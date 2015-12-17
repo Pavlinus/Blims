@@ -1,4 +1,6 @@
 package com.pavgame.Blims {
+	import starling.core.Starling;
+	import starling.animation.Tween;
 	import starling.textures.Texture;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
@@ -47,11 +49,13 @@ package com.pavgame.Blims {
 			var tmpTexClass:Class = texClass;
 			var tmpTexture:Texture = texture;
 			
-			if (event.getTouch(this, TouchPhase.ENDED) != null) {
+			if (event.getTouch(this, TouchPhase.ENDED) != null) 
+			{
 				// If the same button was touched
 				if(SpriteSwap.swapImage == this) 
 				{
 					SpriteSwap.swapImage = null;
+					AnimateImage(0.2, 1, 0xffffff);
 					return;
 				}
 				
@@ -61,6 +65,7 @@ package com.pavgame.Blims {
 					
 					texture = swapItem.texture;
 					texClass = swapItem.texClass;
+					AnimateImage(0.2, 1, 0xffffff);
 					
 					swapItem.texClass = tmpTexClass;
 					swapItem.texture = tmpTexture;
@@ -68,12 +73,27 @@ package com.pavgame.Blims {
 					
 					CheckRightPosition();
 					swapItem.CheckRightPosition();
+					swapItem.AnimateImage(0.2, 1, 0xffffff);
 				} else if(texClass != GameTextures.GrayBack) {
 					SpriteSwap.swapImage = this;
 				} else {
+					this.AnimateImage(0.2, 1, 0xffffff);
 					SpriteSwap.swapImage = null;
 				}
+			} else if (event.getTouch(this, TouchPhase.BEGAN) != null) {
+				AnimateImage(0.2, 1.05, 0xffa800);
 			}
+		}
+		
+		public function AnimateImage(timer:Number, scale:Number, color:Number) : void
+		{
+			var tween:Tween = new Tween(this, timer);
+			
+			tween.animate("scaleX", scale);
+			tween.animate("scaleY", scale);
+			tween.animate("color", color);
+			
+			Starling.juggler.add(tween);
 		}
 		
 		// Check if image is on right position

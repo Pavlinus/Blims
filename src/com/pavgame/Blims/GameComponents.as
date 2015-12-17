@@ -9,5 +9,6 @@ package com.pavgame.Blims {
 		public static var positionIndex : int = 0;
 		public static var moveDirection : int = 0;
 		public static var rightPositions : int = 0;
+		public static var victory : Boolean = false;
 	}
 }

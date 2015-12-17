@@ -9,7 +9,7 @@ package com.pavgame.Blims {
 	public class SpriteContainer extends Sprite 
 	{
 		var cDimension:int = 3;
-		var offset:int = 3;
+		var offset:int = 10;
 		var centerImg:Class;
 		var gTextures:GameTextures;
 		var indSequence:Array;
@@ -51,6 +51,10 @@ package com.pavgame.Blims {
 					if(row == 1 && col == 1) 
 					{
 						imgItem = new Item(this, centerImg, highlightImg, false);
+						imgItem.x = imgItem.width * col - 20;
+						imgItem.y = imgItem.height * row - 20;
+						addChild(imgItem);
+						continue;
 					} else if(row == 0 && col == 0) {
 						imgItem = new Item(this, GameTextures.GrayBack, null, true);
 					} else {
@@ -59,7 +63,7 @@ package com.pavgame.Blims {
 					
 					imgItem.x = imgItem.width * col + offset * col;
 					imgItem.y = imgItem.height * row + offset * row;
-					
+										
 					addChild(imgItem);
 				}
 			}
