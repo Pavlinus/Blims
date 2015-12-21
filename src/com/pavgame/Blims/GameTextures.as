@@ -45,6 +45,9 @@ package com.pavgame.Blims {
 		[Embed(source="/../res/gameover_960.jpg")]
 		public static const GameOverBackground:Class;
 		
+		[Embed(source="/../res/welcome_background.jpg")]
+		public static const WelcomeBackground:Class;
+		
 		public static const texturesCount:int = 3;
 		
 		const arrCapacity:int = 7;

@@ -1,24 +1,23 @@
 package com.pavgame.Blims {
+	import flash.desktop.NativeApplication;
 	import starling.core.Starling;
-	import starling.events.Event;
-	import starling.events.TouchPhase;
 	import starling.animation.Tween;
+	import starling.events.TouchPhase;
 	import starling.events.TouchEvent;
-	import starling.display.Image;
-	import starling.display.Sprite;
 	import starling.text.TextField;
+	import starling.display.Image;
+	import starling.events.Event;
+	import starling.display.Sprite;
 
 	/**
 	 * @author Pavlinus
 	 */
-	public class GameOver extends Sprite {
+	public class Welcome extends Sprite {
 		var playText : TextField;
-		var menuText : TextField;
-		var victoryText:TextField;
-		var victory : Boolean;
-			
-		public function GameOver() 
-		{
+		var exitText : TextField;
+		var titleText:TextField;
+		
+		public function Welcome() {
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
@@ -29,43 +28,41 @@ package com.pavgame.Blims {
 		}
 		
 		function DrawScreen() : void
-		{			
+		{
 			var background : Image = new Image(GameTextures.GetTexture(
-				GameTextures.GameOverBackground));
+				GameTextures.WelcomeBackground));
 			
-			var vicText : String = victory ? "victory" : "defeat";
-			
-			victoryText = new TextField(300, 60, vicText, 
+			titleText = new TextField(550, 65, "somewhere wars", 
 				"StarJedi", 50, 0xffa800, true);
-			victoryText.alignPivot("left", "center");
-			victoryText.x = 40;
-			victoryText.y = 50;
+			titleText.alignPivot("center", "top");
+			titleText.x = background.width / 2;
+			titleText.y = 50;
 			
 			playText = new TextField(200, 60, "play", 
 				"StarJedi", 40, 0xffffff, true);
 			playText.alignPivot("left", "center");
 			playText.x = 50;
-			playText.y = background.height / 2 - 60;
+			playText.y = background.height / 2 - 70;
 			
-			menuText = new TextField(200, 60, "menu", 
+			exitText = new TextField(200, 60, "quit", 
 				"StarJedi", 40, 0xffffff, true);
-			menuText.alignPivot("left", "center");
-			menuText.x = 50;
-			menuText.y = background.height / 2 + 30;
+			exitText.alignPivot("left", "center");
+			exitText.x = 50;
+			exitText.y = background.height / 2;
 			
 			this.addEventListener(TouchEvent.TOUCH, onItemTouch);
 			
 			addChild(background);
-			addChild(victoryText);
+			addChild(titleText);
 			addChild(playText);
-			addChild(menuText);
+			addChild(exitText);
 		}
 		
 		function onItemTouch(event:TouchEvent) : void
 		{
 			var target : TextField = event.target as TextField;
 			
-			if(target == victoryText)
+			if(target == titleText)
 			{
 				return;
 			}
@@ -89,9 +86,8 @@ package com.pavgame.Blims {
 			{
 				this.dispatchEvent(new NavigationEvent(
 					NavigationEvent.CHANGE_SCREEN, {id: "replay"}, true));
-			} else if((target as TextField) == menuText) {
-				this.dispatchEvent(new NavigationEvent(
-					NavigationEvent.CHANGE_SCREEN, {id: "welcome"}, true));
+			} else if((target as TextField) == exitText) {
+				NativeApplication.nativeApplication.exit();
 			}
 		}
 		
@@ -117,17 +113,10 @@ package com.pavgame.Blims {
 			}
 		}
 		
-		public function Initialize(_victory : Boolean) : void
+		public function Initialize() : void
 		{
-			if(_victory)
-			{
-				victory = _victory;
-				DrawScreen();
-			} else {
-				this.addEventListener(TouchEvent.TOUCH, onItemTouch);
-			}
-			
 			this.visible = true;
+			this.addEventListener(TouchEvent.TOUCH, onItemTouch);
 		}
 	}
 }

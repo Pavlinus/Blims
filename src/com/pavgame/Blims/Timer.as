@@ -1,5 +1,4 @@
 package com.pavgame.Blims {
-	import starling.utils.Color;
 	import starling.events.Event;
 	import flash.utils.getTimer;
 	import starling.core.Starling;
@@ -11,7 +10,7 @@ package com.pavgame.Blims {
 	 */
 	public class Timer extends TextField {
 		var lastUpdate : Number = 0;
-		var curTime : int = 1;
+		var curTime : int;
 		
 		public function Timer(width : int, height : int, 
 			text : String, fontName : String = "Verdana", 
@@ -19,8 +18,20 @@ package com.pavgame.Blims {
 			bold : Boolean = false) 
 		{
 			super(width, height, text, fontName, fontSize, color, bold);
-			
-			addEventListener(Event.ENTER_FRAME, onTimerUpdate);
+		}
+		
+		public function Activate() : void
+		{
+			if(!this.hasEventListener(Event.ENTER_FRAME))
+			{
+				this.addEventListener(Event.ENTER_FRAME, onTimerUpdate);	
+			}
+			curTime = 120;
+		}
+		
+		public function Deactivate() : void 
+		{
+			removeEventListener(Event.ENTER_FRAME, onTimerUpdate);
 		}
 		
 		function AnimateTimer(time:Number, scale:Number, delay:Number) : void
@@ -57,8 +68,8 @@ package com.pavgame.Blims {
 			if(curTime == 0)
 			{
 				removeEventListener(Event.ENTER_FRAME, onTimerUpdate);
-				color = Color.RED;
-				dispatchEventWith("GameOver", true);
+				this.dispatchEvent(new NavigationEvent(
+					NavigationEvent.CHANGE_SCREEN, {id: "gameover", victory: false}, true));
 			} else {;
 				curTime -= 1;
 			}
